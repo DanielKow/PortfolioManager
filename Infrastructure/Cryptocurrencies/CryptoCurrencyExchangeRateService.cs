@@ -14,24 +14,24 @@ public class CryptoCurrencyExchangeRateService : ICryptoCurrencyExchangeRateServ
         _cache = cache;
     }
 
-    public decimal Get(string currency)
+    public async Task<decimal> Get(string currency)
     {
-        var valueFromCache = _cache.GetString(currency);
+        var valueFromCache = await _cache.GetStringAsync(currency);
         var numericalValue = decimal.Parse(valueFromCache, NumberStyles.Any, CultureInfo.InvariantCulture);
         return numericalValue;
     }
 
-    public void Update(ExchangeRate exchangeRate)
+    public async Task Update(ExchangeRate exchangeRate)
     {
         var stringValue = exchangeRate.Value.ToString(CultureInfo.InvariantCulture);
-        _cache.SetString(exchangeRate.Currency, stringValue);
+        await _cache.SetStringAsync(exchangeRate.Currency, stringValue);
     }
 
-    public void UpdateMany(IEnumerable<ExchangeRate> exchangeRates)
+    public async Task UpdateMany(IEnumerable<ExchangeRate> exchangeRates)
     {
         foreach (var exchangeRate in exchangeRates)
         {
-            Update(exchangeRate);
+            await Update(exchangeRate);
         }
     }
 }

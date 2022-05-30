@@ -4,7 +4,7 @@ namespace PortfolioManager.Application.Cryptocurrencies;
 
 public interface ICryptoCurrencyExchangeRateService
 {
-    decimal Get(string currency);
-    void Update(ExchangeRate exchangeRate);
-    void UpdateMany(IEnumerable<ExchangeRate> exchangeRates);
+    Task<decimal> Get(string currency);
+    Task Update(ExchangeRate exchangeRate);
+    Task UpdateMany(IEnumerable<ExchangeRate> exchangeRates);
 }
